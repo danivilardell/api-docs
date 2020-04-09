@@ -241,10 +241,10 @@
             <a href="#uploads" class="toc-h1 toc-link" data-title="Uploads">Uploads</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#binary-data-file-upload" class="toc-h2 toc-link" data-title="Binary Data File Upload">Binary Data File Upload</a>
+                    <a href="#1-get-a-signed-url" class="toc-h2 toc-link" data-title="1. Get a Signed Url">1. Get a Signed Url</a>
                   </li>
                   <li>
-                    <a href="#multipart-uploads" class="toc-h2 toc-link" data-title="Multipart Uploads">Multipart Uploads</a>
+                    <a href="#2-upload-your-file-with-the-signed-url" class="toc-h2 toc-link" data-title="2. Upload your file with the Signed Url">2. Upload your file with the Signed Url</a>
                   </li>
               </ul>
           </li>
@@ -319,21 +319,16 @@ You must replace <code>**your_api_key_here**</code> with your personal API key.
 </aside>
 <h1 id='uploads'>Uploads</h1>
 <p>When creating a transcription, a media file URL (accessible to our servers) must be provided.<br>
-This can be a publicly accessible URL hosted by yourselves or a third-party.<br>
-Alternatively, you can upload files directly to our storage system (AWS S3 bucket) and create the transcription using the returned URL.  </p>
+This can be a publicly accessible URL hosted by yourselves or a third-party. Alternatively, you can upload files directly to our storage system (AWS S3 bucket) and create the transcription using the returned URL.  </p>
 
-<p>To upload files to our AWS S3 bucket, you must first request a signed URL using the endpoints below.<br>
-Once you have the signed URL, you can upload files as you would to any AWS S3 bucket.  </p>
+<aside class="notice">
 
-<p>We provide two types of signed URLs:</p>
+  If you already have a URL to your file, jump to <a href="/#create-a-new-transcription">create a transcription</a>. If you don't, continue reading to learn how to upload to our servers.
+  
+</aside>
 
-<ul>
-<li>Signed URL for PUTing files as a binary data type</li>
-<li>Signed URL for POSTing files as multipart form-data</li>
-</ul>
-
-<p>Depending on which type of upload you require, you should request a signed URL from one of these two endpoints:</p>
-<h2 id='binary-data-file-upload'>Binary Data File Upload</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/uploads/new?filename=my_media.mp3"</span> <span class="se">\</span>
+<p>To upload files to our AWS S3 bucket, you must first request a signed URL using the endpoints below.  </p>
+<h2 id='1-get-a-signed-url'>1. Get a Signed Url</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/uploads/new?filename=my_media.mp3"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/uploads/new?filename=my_media.mp3'</span><span class="p">,</span> <span class="p">{</span>
@@ -367,51 +362,13 @@ More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/
 <td>(required) The filename and extension of the media file (e.g. <code>my_media.mp3</code>)</td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-  Once you have a signed url, you have to upload the file there.
-</aside>
-
-<p>To upload a file to the signed URL you may use cURL like this <code>curl -X PUT -T my_media.mp3 -L &quot;https://signed-url...&quot;</code></p>
-<h2 id='multipart-uploads'>Multipart Uploads</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/uploads/new?multipart=true"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/uploads/new?multipart=true'</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span><span class="p">,</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<h2 id='2-upload-your-file-with-the-signed-url'>2. Upload your file with the Signed Url</h2><pre class="highlight shell tab-shell"><code>curl -X PUT -T my_media.mp3 -L <span class="s2">"https://signed-url..."</span>
 </code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://happy-scribe-domain.s3.eu-west-1.amazonaws.com"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"form_fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"x-amz-signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxx"</span><span class="p">,</span><span class="w">
-    </span><span class="err">//</span><span class="w"> </span><span class="err">...other</span><span class="w"> </span><span class="err">form</span><span class="w"> </span><span class="err">fields</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint returns a URL and form fields which can be used to POST multipart uploads to our S3 bucket.<br>
-More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html">https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html</a></p>
+<p>Once you have a signed url, you have to upload the file there, and you do it as you would to any AWS S3 bucket.  </p>
 
-<p>Once the file is uploaded, S3 will respond with a URL in the XML body, as well as in the headers.<br>
-You should use this URL as the <code>tmp_url</code> when <a href="#create-a-new-transcription">creating the associated transcription.</a>  </p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://www.happyscribe.co/api/v1/uploads/new</code></p>
-<h3 id='parameters-2'>Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>multipart</td>
-<td>(required) should be set to <code>true</code></td>
-</tr>
-</tbody></table>
+<p>To upload a file to the signed URL you may use cURL like the example on the right.</p>
+
+<p>Here you have more information about how to deal with AWS S3 signed urls <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a>.</p>
 <h1 id='transcriptions'>Transcriptions</h1><h2 id='list-all-transcriptions'>List All Transcriptions</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/transcriptions'</span><span class="p">,</span> <span class="p">{</span>
