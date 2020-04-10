@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Happy Scribe API – Automate Transcription & Subtitles</title>
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
@@ -369,7 +369,11 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </tbody></table>
 <h2 id='2-upload-your-file-with-the-signed-url'>2. Upload your file with the Signed Url</h2><pre class="highlight shell tab-shell"><code>curl -X PUT -T my_media.mp3 -L <span class="s2">"https://signed-url..."</span>
 </code></pre>
-<p>Once you have a signed url, you have to upload the file there, and you do it as you would to any AWS S3 bucket.  </p>
+<blockquote>
+<p>Simple upload to an AWS S3 Bucket</p>
+</blockquote>
+
+<p>Once you have a signed url, you have to upload the file there, and you do it as you would with any AWS S3 bucket.  </p>
 
 <p>To upload a file to the signed URL you may use cURL like the example on the right.</p>
 
