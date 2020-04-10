@@ -221,7 +221,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo.png" class="logo" alt="Logo" />
+      <a href="https://www.happyscribe.co">
+        <img src="images/logo.png" class="logo" alt="Logo" />
+      </a>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
@@ -273,23 +275,28 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://www.happyscribe.co/users/sign_up'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://www.happyscribe.co/users/sign_up' class="cta">Get Started →</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the HappyScribe API!</p>
+<blockquote>
+<p>Base url</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>https://www.happyscribe.co/api/v1
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//www.happyscribe.co/api/v1</span>
+</code></pre>
+<p>Welcome to the HappyScribe API  👋</p>
 
-<p>Using this API, you can programmatically submit files to be transcribed by HappyScribe.<br>
-You can also access existing transcriptions and export them to various formats.</p>
+<p>Using this API, you can programmatically submit files to be transcribed by HappyScribe. You can also access existing transcriptions and export them to various formats.</p>
 
-<p>We try to be a RESTfull API, using appropriate resource names and verbs.<br>
-Our API is versioned where breaking changes are released as incremental versions.<br>
-We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions ✌️.</p>
+<p>We try to be a RESTfull API, using appropriate resource names and verbs. Our API is versioned where breaking changes are released as incremental versions. We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions.</p>
 
-<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you 🙈</p>
+<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you!</p>
+
+<p>— happyscribe team</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
@@ -343,8 +350,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
   </span><span class="s2">"signedUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://happy-scribe-domain.s3.eu-west-1.amazonaws.com/xxxxxx?x-amx-signature=xxxxx..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket.<br>
-More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a></p>
+<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket. More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a></p>
 
 <p>Once the file is uploaded, this same url should be used as the <code>tmp_url</code> when <a href="#create-a-new-transcription">creating the associated transcription.</a></p>
 <h3 id='http-request'>HTTP Request</h3>
