@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Happy Scribe API – Automate Transcription & Subtitles</title>
+    <title>API Reference</title>
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
@@ -221,9 +221,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <a href="https://www.happyscribe.co">
-        <img src="images/logo.png" class="logo" alt="Logo" />
-      </a>
+      <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
@@ -262,16 +260,8 @@
                   <li>
                     <a href="#retrieve-a-transcription" class="toc-h2 toc-link" data-title="Retrieve a Transcription">Retrieve a Transcription</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#exports" class="toc-h1 toc-link" data-title="Exports">Exports</a>
-              <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-an-export" class="toc-h2 toc-link" data-title="Create an Export">Create an Export</a>
-                  </li>
-                  <li>
-                    <a href="#retrieve-an-export" class="toc-h2 toc-link" data-title="Retrieve an Export">Retrieve an Export</a>
+                    <a href="#export-a-transcription" class="toc-h2 toc-link" data-title="Export a Transcription">Export a Transcription</a>
                   </li>
               </ul>
           </li>
@@ -283,36 +273,32 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://www.happyscribe.co/users/sign_up' class="cta">Get Started →</a></li>
+            <li><a href='https://www.happyscribe.co/users/sign_up'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<blockquote>
-<p>Base url</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>https://www.happyscribe.co/api/v1
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//www.happyscribe.co/api/v1</span>
-</code></pre>
-<p>Welcome to the Happy Scribe API  👋</p>
+<p>Welcome to the HappyScribe API!</p>
 
-<p>With this API you can automatically submit files to be transcribed by Happy Scribe, access existing transcriptions and export them to various formats.</p>
+<p>Using this API, you can programmatically submit files to be transcribed by HappyScribe.<br>
+You can also access existing transcriptions and export them to various formats.</p>
 
-<p>This is a REST API that uses predictable resource names and verbs. Our API is versioned where breaking changes are released as incremental versions. We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions.</p>
+<p>We try to be a RESTfull API, using appropriate resource names and verbs.<br>
+Our API is versioned where breaking changes are released as incremental versions.<br>
+We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions ✌️.</p>
 
-<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you!</p>
-
-<p>— happyscribe team</p>
+<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you 🙈</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions"</span> <span class="se">\</span>
+curl <span class="s2">"https://www.happyscribe.co/api/v1/"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/transcriptions'</span><span class="p">,</span> <span class="p">{</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/'</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
   <span class="p">}</span>
@@ -322,9 +308,9 @@ curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions"</span> 
 <p>Make sure to replace <code>**your_api_key_here**</code> with your API key.</p>
 </blockquote>
 
-<p>Happy Scribe uses API keys to allow access to the API. You can get your API key by logging in and going to <a href="https://www.happyscribe.co/users/edit">settings</a> </p>
+<p>HappyScribe uses API keys to allow access to the API. You can get your API key by logging in and going to <a href="https://www.happyscribe.co/users/edit">settings</a> </p>
 
-<p>Happy Scribe expects the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>HappyScribe expects the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code>Authorization: Bearer **your_api_key_here**&quot;</code></p>
 
@@ -358,7 +344,8 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
   </span><span class="s2">"signedUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://happy-scribe-domain.s3.eu-west-1.amazonaws.com/xxxxxx?x-amx-signature=xxxxx..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket. More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a></p>
+<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket.<br>
+More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html</a></p>
 
 <p>Once the file is uploaded, this same url should be used as the <code>tmp_url</code> when <a href="#create-a-new-transcription">creating the associated transcription.</a></p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -377,11 +364,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </tbody></table>
 <h2 id='2-upload-your-file-with-the-signed-url'>2. Upload your file with the Signed Url</h2><pre class="highlight shell tab-shell"><code>curl -X PUT -T my_media.mp3 -L <span class="s2">"https://signed-url..."</span>
 </code></pre>
-<blockquote>
-<p>Simple upload to an AWS S3 Bucket</p>
-</blockquote>
-
-<p>Once you have a signed url, you have to upload the file there, and you do it as you would with any AWS S3 bucket.  </p>
+<p>Once you have a signed url, you have to upload the file there, and you do it as you would to any AWS S3 bucket.  </p>
 
 <p>To upload a file to the signed URL you may use cURL like the example on the right.</p>
 
@@ -437,7 +420,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p>Returns a list of transcriptions you’ve previously created. The transcriptions are returned in sorted order, with the most recent charges appearing first. The information returned is metadata about each transcription, not the actual transcript. To retrieve a specific transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
+<p>Returns a list of transcriptions you’ve previously created. The transcriptions are returned in sorted order, with the most recent charges appearing first. The information returned is metadata about each transcription, not the actual transcript. To retrieve a specific transcript you have to use the <a href="#export-a-transcription">export endpoint</a>.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.co/api/v1/transcriptions</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -570,7 +553,7 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
+<p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#export-a-transcription">export endpoint</a>.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;</code></p>
 <h3 id='transcription-state-descriptions'>Transcription State Descriptions</h3>
@@ -609,57 +592,25 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <td>The initial demo file</td>
 </tr>
 </tbody></table>
-<h1 id='exports'>Exports</h1><h2 id='create-an-export'>Create an Export</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://www.happyscribe.co/api/v1/exports"</span> <span class="se">\</span>
+<h2 id='export-a-transcription'>Export a Transcription</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span> <span class="se">\</span>
-  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  -d <span class="s1">'{
-    "export": {
-      "format": "txt",
-      "transcription_ids": [
-        "**transcription_id_1**"
-      ]
-    }
-  }'</span>
-
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/exports'</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  --output my_export.txt
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt'</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span><span class="p">,</span>
-    <span class="s1">'content-type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
-  <span class="p">},</span>
-  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-    <span class="na">export</span><span class="p">:</span> <span class="p">{</span>
-      <span class="na">format</span><span class="p">:</span> <span class="s1">'txt'</span><span class="p">,</span> 
-      <span class="na">transcription_ids</span><span class="p">:</span> 
-      <span class="p">[</span>
-        <span class="s1">'**transcription_id_1**'</span>
-      <span class="p">]</span> 
-    <span class="p">}</span>
-  <span class="p">})</span>
+    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
+  <span class="p">}</span>
 <span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
 </code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"**export_id**"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"format"</span><span class="p">:</span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_timestamps"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_speakers"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_comments"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_highlights"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"transcription_ids"</span><span class="p">:[</span><span class="w">
-      </span><span class="s2">"**transcription_id_1**"</span><span class="w">
-   </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint creates a new export. After an export is created, the system well proceed to generate it. You can watch if the exporting process has finished by <a href="#retrieve-an-export">retrieving an export</a>. </p>
+<p>This endpoint generates a transcription export.
+Exports are sent to the client as binary data. You&#39;ll need to capture the output and save it to your local filesystem.</p>
 
-<p>The exporting process is generally very fast. Each file takes ~10s to complete. You can submit more than one file at the same time.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://www.happyscribe.co/api/v1/exports</code></p>
-<h3 id='json-parameters'>JSON Parameters</h3>
+<aside class="notice">
+To export a transcription it must have the <code>state</code> = <code>automatic_done</code>. You can check the state by <a href="#retrieve-a-transcription">retrieving the transcription metadata</a>.
+</aside>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -673,22 +624,22 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <td>(required) Specify the export format (see chart below)</td>
 </tr>
 <tr>
-<td>show_timestamps</td>
+<td>timestamp</td>
 <td>false</td>
 <td>Include timestamps (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>show_speakers</td>
+<td>speaker</td>
 <td>false</td>
 <td>Include speaker labels (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>show_comments</td>
+<td>comments</td>
 <td>false</td>
 <td>Include comments (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>show_highlights</td>
+<td>highlights</td>
 <td>false</td>
 <td>Include highlights (only formats: <code>docx</code>, <code>pdf</code> )</td>
 </tr>
@@ -733,64 +684,8 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <td>Premiere Pro (Beta) (.xml)</td>
 </tr>
 </tbody></table>
-<h2 id='retrieve-an-export'>Retrieve an Export</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;'</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"**export_id**"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"ready"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"format"</span><span class="p">:</span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_timestamps"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_speakers"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_comments"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"show_highlights"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"transcription_ids"</span><span class="p">:[</span><span class="w">
-      </span><span class="s2">"**transcription_id_1**"</span><span class="p">,</span><span class="w">
-   </span><span class="p">],</span><span class="w">
-   </span><span class="s2">"download_link"</span><span class="p">:</span><span class="s2">"**download_link**"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves information about a specific export. To download it you can use the returned <code>download_link</code> .</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;</code></p>
-<h3 id='export-state-descriptions'>Export State Descriptions</h3>
-<table><thead>
-<tr>
-<th>Value</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>pending</code></td>
-<td>Waiting to be processed</td>
-</tr>
-<tr>
-<td><code>processing</code></td>
-<td>The export is being generated</td>
-</tr>
-<tr>
-<td><code>ready</code></td>
-<td>The export is ready to download</td>
-</tr>
-<tr>
-<td><code>expired</code></td>
-<td>No longer available</td>
-</tr>
-<tr>
-<td><code>failed</code></td>
-<td>A problem occurred</td>
-</tr>
-</tbody></table>
 <h1 id='errors'>Errors</h1>
-<p>The Happy Scribe API uses the following error codes:</p>
+<p>The HappyScribe API uses the following error codes:</p>
 
 <table><thead>
 <tr>
