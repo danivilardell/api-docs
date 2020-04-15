@@ -262,8 +262,16 @@
                   <li>
                     <a href="#retrieve-a-transcription" class="toc-h2 toc-link" data-title="Retrieve a Transcription">Retrieve a Transcription</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#exports" class="toc-h1 toc-link" data-title="Exports">Exports</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#export-a-transcription" class="toc-h2 toc-link" data-title="Export a Transcription">Export a Transcription</a>
+                    <a href="#create-an-export" class="toc-h2 toc-link" data-title="Create an Export">Create an Export</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-an-export" class="toc-h2 toc-link" data-title="Retrieve an Export">Retrieve an Export</a>
                   </li>
               </ul>
           </li>
@@ -429,7 +437,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre>
-<p>Returns a list of transcriptions you’ve previously created. The transcriptions are returned in sorted order, with the most recent charges appearing first. The information returned is metadata about each transcription, not the actual transcript. To retrieve a specific transcript you have to use the <a href="#export-a-transcription">export endpoint</a>.</p>
+<p>Returns a list of transcriptions you’ve previously created. The transcriptions are returned in sorted order, with the most recent charges appearing first. The information returned is metadata about each transcription, not the actual transcript. To retrieve a specific transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.co/api/v1/transcriptions</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -562,7 +570,7 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#export-a-transcription">export endpoint</a>.</p>
+<p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;</code></p>
 <h3 id='transcription-state-descriptions'>Transcription State Descriptions</h3>
@@ -601,25 +609,57 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <td>The initial demo file</td>
 </tr>
 </tbody></table>
-<h2 id='export-a-transcription'>Export a Transcription</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt"</span> <span class="se">\</span>
+<h1 id='exports'>Exports</h1><h2 id='create-an-export'>Create an Export</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://www.happyscribe.co/api/v1/exports"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span> <span class="se">\</span>
-  --output my_export.txt
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt'</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="o">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">text</span><span class="p">())</span>
-</code></pre>
-<p>This endpoint generates a transcription export.
-Exports are sent to the client as binary data. You&#39;ll need to capture the output and save it to your local filesystem.</p>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "export": {
+      "format": "txt",
+      "transcription_ids": [
+        "**transcription_id_1**"
+      ]
+    }
+  }'</span>
 
-<aside class="notice">
-To export a transcription it must have the <code>state</code> = <code>automatic_done</code>. You can check the state by <a href="#retrieve-a-transcription">retrieving the transcription metadata</a>.
-</aside>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET https://www.happyscribe.co/api/v1/transcriptions/&lt;ID&gt;/exports/new?format=txt</code></p>
-<h3 id='query-parameters-2'>Query Parameters</h3>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/exports'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span><span class="p">,</span>
+    <span class="s1">'content-type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">export</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">format</span><span class="p">:</span> <span class="s1">'txt'</span><span class="p">,</span> 
+      <span class="na">transcription_ids</span><span class="p">:</span> 
+      <span class="p">[</span>
+        <span class="s1">'**transcription_id_1**'</span>
+      <span class="p">]</span> 
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"**export_id**"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"format"</span><span class="p">:</span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_timestamps"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_speakers"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_comments"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_highlights"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"transcription_ids"</span><span class="p">:[</span><span class="w">
+      </span><span class="s2">"**transcription_id_1**"</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates a new export. After an export is created, the system well proceed to generate it. You can watch if the exporting process has finished by <a href="#retrieve-an-export">retrieving an export</a>. </p>
+
+<p>The exporting process is generally very fast. Each file takes ~10s to complete. You can submit more than one file at the same time.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://www.happyscribe.co/api/v1/exports</code></p>
+<h3 id='json-parameters'>JSON Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -633,22 +673,22 @@ To export a transcription it must have the <code>state</code> = <code>automatic_
 <td>(required) Specify the export format (see chart below)</td>
 </tr>
 <tr>
-<td>timestamp</td>
+<td>show_timestamps</td>
 <td>false</td>
 <td>Include timestamps (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>speaker</td>
+<td>show_speakers</td>
 <td>false</td>
 <td>Include speaker labels (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>comments</td>
+<td>show_comments</td>
 <td>false</td>
 <td>Include comments (only formats: <code>txt</code>, <code>docx</code>, <code>pdf</code> )</td>
 </tr>
 <tr>
-<td>highlights</td>
+<td>show_highlights</td>
 <td>false</td>
 <td>Include highlights (only formats: <code>docx</code>, <code>pdf</code> )</td>
 </tr>
@@ -691,6 +731,62 @@ To export a transcription it must have the <code>state</code> = <code>automatic_
 <tr>
 <td>premiere</td>
 <td>Premiere Pro (Beta) (.xml)</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-an-export'>Retrieve an Export</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"**export_id**"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"ready"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"format"</span><span class="p">:</span><span class="s2">"txt"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_timestamps"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_speakers"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_comments"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"show_highlights"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"transcription_ids"</span><span class="p">:[</span><span class="w">
+      </span><span class="s2">"**transcription_id_1**"</span><span class="p">,</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="s2">"download_link"</span><span class="p">:</span><span class="s2">"**download_link**"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves information about a specific export. To download it you can use the returned <code>download_link</code> .</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;</code></p>
+<h3 id='export-state-descriptions'>Export State Descriptions</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>pending</code></td>
+<td>Waiting to be processed</td>
+</tr>
+<tr>
+<td><code>processing</code></td>
+<td>The export is being generated</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>The export is ready to download</td>
+</tr>
+<tr>
+<td><code>expired</code></td>
+<td>No longer available</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>A problem occurred</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
