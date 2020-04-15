@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Happy Scribe API – Automate Transcription & Subtitles</title>
     <link href="images/favicon.ico" rel="icon" type="image/ico" />
 
     <style>
@@ -221,7 +221,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo.png" class="logo" alt="Logo" />
+      <a href="https://www.happyscribe.co">
+        <img src="images/logo.png" class="logo" alt="Logo" />
+      </a>
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
@@ -273,32 +275,36 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://www.happyscribe.co/users/sign_up'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://www.happyscribe.co/users/sign_up' class="cta">Get Started →</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the HappyScribe API!</p>
+<blockquote>
+<p>Base url</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>https://www.happyscribe.co/api/v1
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">https</span><span class="p">:</span><span class="c1">//www.happyscribe.co/api/v1</span>
+</code></pre>
+<p>Welcome to the Happy Scribe API  👋</p>
 
-<p>Using this API, you can programmatically submit files to be transcribed by HappyScribe.<br>
-You can also access existing transcriptions and export them to various formats.</p>
+<p>With this API you can automatically submit files to be transcribed by Happy Scribe, access existing transcriptions and export them to various formats.</p>
 
-<p>We try to be a RESTfull API, using appropriate resource names and verbs.<br>
-Our API is versioned where breaking changes are released as incremental versions.<br>
-We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions ✌️.</p>
+<p>This is a REST API that uses predictable resource names and verbs. Our API is versioned where breaking changes are released as incremental versions. We&#39;ll try our best not to release versions too often, and to reasonably support legacy versions.</p>
 
-<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you 🙈</p>
+<p>If you have any questions, please write to us at <a href="mailto:dev@happyscribe.co">dev@happyscribe.co</a>. We&#39;d love to hear from you!</p>
+
+<p>— happyscribe team</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"https://www.happyscribe.co/api/v1/"</span> <span class="se">\</span>
+curl <span class="s2">"https://www.happyscribe.co/api/v1/transcriptions"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/'</span><span class="p">,</span> <span class="p">{</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/transcriptions'</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
   <span class="p">}</span>
@@ -308,9 +314,9 @@ curl <span class="s2">"https://www.happyscribe.co/api/v1/"</span> <span class="s
 <p>Make sure to replace <code>**your_api_key_here**</code> with your API key.</p>
 </blockquote>
 
-<p>HappyScribe uses API keys to allow access to the API. You can get your API key by logging in and going to <a href="https://www.happyscribe.co/users/edit">settings</a> </p>
+<p>Happy Scribe uses API keys to allow access to the API. You can get your API key by logging in and going to <a href="https://www.happyscribe.co/users/edit">settings</a> </p>
 
-<p>HappyScribe expects the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Happy Scribe expects the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code>Authorization: Bearer **your_api_key_here**&quot;</code></p>
 
@@ -344,8 +350,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
   </span><span class="s2">"signedUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://happy-scribe-domain.s3.eu-west-1.amazonaws.com/xxxxxx?x-amx-signature=xxxxx..."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket.<br>
-More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html</a></p>
+<p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket. More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a></p>
 
 <p>Once the file is uploaded, this same url should be used as the <code>tmp_url</code> when <a href="#create-a-new-transcription">creating the associated transcription.</a></p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -364,7 +369,11 @@ More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/
 </tbody></table>
 <h2 id='2-upload-your-file-with-the-signed-url'>2. Upload your file with the Signed Url</h2><pre class="highlight shell tab-shell"><code>curl -X PUT -T my_media.mp3 -L <span class="s2">"https://signed-url..."</span>
 </code></pre>
-<p>Once you have a signed url, you have to upload the file there, and you do it as you would to any AWS S3 bucket.  </p>
+<blockquote>
+<p>Simple upload to an AWS S3 Bucket</p>
+</blockquote>
+
+<p>Once you have a signed url, you have to upload the file there, and you do it as you would with any AWS S3 bucket.  </p>
 
 <p>To upload a file to the signed URL you may use cURL like the example on the right.</p>
 
@@ -685,7 +694,7 @@ To export a transcription it must have the <code>state</code> = <code>automatic_
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<p>The HappyScribe API uses the following error codes:</p>
+<p>The Happy Scribe API uses the following error codes:</p>
 
 <table><thead>
 <tr>
