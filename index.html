@@ -276,6 +276,17 @@
               </ul>
           </li>
           <li>
+            <a href="#translation" class="toc-h1 toc-link" data-title="Translation">Translation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-translation-task" class="toc-h2 toc-link" data-title="Create a Translation Task">Create a Translation Task</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-a-translation-task" class="toc-h2 toc-link" data-title="Retrieve a Translation Task">Retrieve a Translation Task</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
           <li>
@@ -808,6 +819,247 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <tr>
 <td><code>failed</code></td>
 <td>A problem occurred</td>
+</tr>
+</tbody></table>
+<h1 id='translation'>Translation</h1><h2 id='create-a-translation-task'>Create a Translation Task</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://www.happyscribe.co/api/v1/task/transcription_translation"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "source_transcription_id": "**source_transcription_id**",
+    "target_language": "es"
+  }'</span>
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/exports'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span><span class="p">,</span>
+    <span class="s1">'content-type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">source_transcription_id</span><span class="p">:</span> <span class="s2">"**source_transcription_id**"</span><span class="p">,</span>
+    <span class="na">target_language</span><span class="p">:</span> <span class="s2">"es"</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"054fe9f3aa0b446baea730fba688f96c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"working"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"failureReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"progressPercent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"targetLanguage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Creates a new translation task given a source transcription and a target language code.
+After a translation task is created, the system will proceed to generate a new transcription
+with the translated content. You can watch the task status and get the result
+by <a href="#retrieve-a-translation-task">retrieving a translation task</a> using the response
+ <code>id</code> property.</p>
+
+<p>The translation task typically takes ~10s to complete, but can take up to two minutes if
+the source transcription is large.</p>
+
+<aside class="notice">
+If the specified source transcription is itself the result of a translation task, the transcription
+that will be translated will be the original one, not the translation.
+
+Example: We translate a transcription with <code>id = 1</code> and get a
+translated transcription with <code>id = 2</code> as a result. If we create a translation
+task with <code>source_transcription_id = 2</code>, then the transcription with 
+<code>id = 1</code> will be used instead. The result will be the same as if we had
+created the task with <code>source_transcription_id = 1</code>.
+</aside>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://www.happyscribe.co/api/v1/task/transcription_translation</code></p>
+<h3 id='json-parameters'>JSON Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>source_transcription_id</td>
+<td>none</td>
+<td>(required) Specify the id of the transcription you want to translate from. It must be in one of the <a href="#supported-source-translation-languages">supported source translation languages</a>.</td>
+</tr>
+<tr>
+<td>target_language</td>
+<td>none</td>
+<td>(required) The language code of the language you want to translate to. Full list <a href="#target-translation-languages">here</a>.</td>
+</tr>
+</tbody></table>
+<h3 id='supported-source-translation-languages'>Supported source translation languages</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Language</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>de</td>
+<td>German</td>
+</tr>
+<tr>
+<td>en</td>
+<td>English</td>
+</tr>
+<tr>
+<td>fr</td>
+<td>French</td>
+</tr>
+<tr>
+<td>it</td>
+<td>Italian</td>
+</tr>
+<tr>
+<td>ja</td>
+<td>Japanese</td>
+</tr>
+<tr>
+<td>es</td>
+<td>Spanish</td>
+</tr>
+<tr>
+<td>nl</td>
+<td>Dutch</td>
+</tr>
+<tr>
+<td>pl</td>
+<td>Polish</td>
+</tr>
+<tr>
+<td>pt</td>
+<td>Portuguese</td>
+</tr>
+<tr>
+<td>ru</td>
+<td>Russian</td>
+</tr>
+<tr>
+<td>cmn-Hans-CN</td>
+<td>Chinese, Mandarin (Simplified, China)</td>
+</tr>
+<tr>
+<td>cmn-Hans-HK</td>
+<td>Chinese, Mandarin (Simplified, Hong Kong)</td>
+</tr>
+<tr>
+<td>cmn-Hant-TW</td>
+<td>Chinese, Mandarin (Traditional, Taiwan)</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+All language variants for these languages are supported. For example, a transcription
+with language code `es-CO` (Spanish from Colombia) can be translated since
+`es` is in this list. The only exception is Chinese, where only the
+Mandarin variants are supported.
+</aside>
+<h3 id='target-translation-languages'>Target translation languages</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Language</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>en</td>
+<td>English</td>
+</tr>
+<tr>
+<td>es</td>
+<td>Spanish</td>
+</tr>
+<tr>
+<td>fr</td>
+<td>French</td>
+</tr>
+<tr>
+<td>de</td>
+<td>German</td>
+</tr>
+<tr>
+<td>zh</td>
+<td>Chinese</td>
+</tr>
+<tr>
+<td>nl</td>
+<td>Dutch</td>
+</tr>
+<tr>
+<td>pt-pt</td>
+<td>Portuguese (Portugal)</td>
+</tr>
+<tr>
+<td>pt-br</td>
+<td>Portuguese (Brazil)</td>
+</tr>
+<tr>
+<td>ru</td>
+<td>Russian</td>
+</tr>
+<tr>
+<td>it</td>
+<td>Italian</td>
+</tr>
+<tr>
+<td>pl</td>
+<td>Polish</td>
+</tr>
+</tbody></table>
+<h2 id='retrieve-a-translation-task'>Retrieve a Translation Task</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/task/transcription_translation/&lt;ID&gt;"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/task/transcription_translation/&lt;ID&gt;'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">authorization</span><span class="p">:</span> <span class="s1">'Bearer **your_api_key_here**'</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+<blockquote>
+<p>The above command returns a JSON structured like the following:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"054fe9f3aa0b446baea730fba688f96c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"done"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"failureReason"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"progressPercent"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"targetLanguage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"es"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"translatedTranscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372e9530d8f24ba68ccbcce11de43f9d"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns information about a translation task. To get the translated
+trancription when the task has finished you can use the <code>translatedTranscriptionId</code> property in
+the response. Remember that you can use the <a href="#retrieve-a-transcription">transcription endpoint</a> 
+or the <a href="#create-an-export">export endpoint</a> to retrieve the information and 
+content of the transcription given the transcription id.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://www.happyscribe.co/api/v1/task/transcription_translation/&lt;id&gt;</code></p>
+<h3 id='translation-task-state-descriptions'>Translation task state descriptions</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>initial</td>
+<td>The task is waiting to be processed</td>
+</tr>
+<tr>
+<td>working</td>
+<td>The translation is being generated</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>A problem occured. See the <code>failureReason</code> attribute.</td>
+</tr>
+<tr>
+<td>done</td>
+<td>The translated transcription is ready. The <code>translatedTranscriptionId</code> attribute can be used to retrieve the resulting transcription</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
