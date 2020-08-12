@@ -892,6 +892,58 @@ created the task with <code>source_transcription_id = 1</code>.
 <td>(required) The language code of the language you want to translate to. Full list <a href="#target-translation-languages">here</a>.</td>
 </tr>
 </tbody></table>
+<h3 id='target-translation-languages'>Target translation languages</h3>
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Language</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>en</td>
+<td>English</td>
+</tr>
+<tr>
+<td>es</td>
+<td>Spanish</td>
+</tr>
+<tr>
+<td>fr</td>
+<td>French</td>
+</tr>
+<tr>
+<td>de</td>
+<td>German</td>
+</tr>
+<tr>
+<td>zh</td>
+<td>Chinese</td>
+</tr>
+<tr>
+<td>nl</td>
+<td>Dutch</td>
+</tr>
+<tr>
+<td>pt-pt</td>
+<td>Portuguese (Portugal)</td>
+</tr>
+<tr>
+<td>pt-br</td>
+<td>Portuguese (Brazil)</td>
+</tr>
+<tr>
+<td>ru</td>
+<td>Russian</td>
+</tr>
+<tr>
+<td>it</td>
+<td>Italian</td>
+</tr>
+<tr>
+<td>pl</td>
+<td>Polish</td>
+</tr>
+</tbody></table>
 <h3 id='supported-source-translation-languages'>Supported source translation languages</h3>
 <table><thead>
 <tr>
@@ -959,58 +1011,6 @@ with language code `es-CO` (Spanish from Colombia) can be translated since
 `es` is in this list. The only exception is Chinese, where only the
 Mandarin variants are supported.
 </aside>
-<h3 id='target-translation-languages'>Target translation languages</h3>
-<table><thead>
-<tr>
-<th>Code</th>
-<th>Language</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>en</td>
-<td>English</td>
-</tr>
-<tr>
-<td>es</td>
-<td>Spanish</td>
-</tr>
-<tr>
-<td>fr</td>
-<td>French</td>
-</tr>
-<tr>
-<td>de</td>
-<td>German</td>
-</tr>
-<tr>
-<td>zh</td>
-<td>Chinese</td>
-</tr>
-<tr>
-<td>nl</td>
-<td>Dutch</td>
-</tr>
-<tr>
-<td>pt-pt</td>
-<td>Portuguese (Portugal)</td>
-</tr>
-<tr>
-<td>pt-br</td>
-<td>Portuguese (Brazil)</td>
-</tr>
-<tr>
-<td>ru</td>
-<td>Russian</td>
-</tr>
-<tr>
-<td>it</td>
-<td>Italian</td>
-</tr>
-<tr>
-<td>pl</td>
-<td>Polish</td>
-</tr>
-</tbody></table>
 <h2 id='retrieve-a-translation-task'>Retrieve a Translation Task</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/task/transcription_translation/&lt;ID&gt;"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer **your_api_key_here**"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">'https://www.happyscribe.co/api/v1/task/transcription_translation/&lt;ID&gt;'</span><span class="p">,</span> <span class="p">{</span>
