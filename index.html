@@ -376,6 +376,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </tr>
 </tbody></table>
 <h2 id='2-upload-your-file-with-the-signed-url'>2. Upload your file with the Signed Url</h2><pre class="highlight shell tab-shell"><code>curl -X PUT -T my_media.mp3 -L <span class="s2">"https://signed-url..."</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">curl</span> <span class="o">-</span><span class="nx">X</span> <span class="nx">PUT</span> <span class="o">-</span><span class="nx">T</span> <span class="nx">my_media</span><span class="p">.</span><span class="nx">mp3</span> <span class="o">-</span><span class="nx">L</span> <span class="s2">"https://signed-url..."</span>
 </code></pre>
 <blockquote>
 <p>Simple upload to an AWS S3 Bucket</p>
@@ -581,6 +582,10 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 </tr>
 </thead><tbody>
 <tr>
+<td><code>initial</code></td>
+<td>Transcription is waiting to be processed</td>
+</tr>
+<tr>
 <td><code>ingesting</code></td>
 <td>Media file is being ingested</td>
 </tr>
@@ -654,7 +659,7 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint creates a new export. After an export is created, the system well proceed to generate it. You can watch if the exporting process has finished by <a href="#retrieve-an-export">retrieving an export</a>. </p>
+<p>This endpoint creates a new export. After an export is created, the system will proceed to generate it. You can watch if the exporting process has finished by <a href="#retrieve-an-export">retrieving an export</a>. </p>
 
 <p>The exporting process is generally very fast. Each file takes ~10s to complete. You can submit more than one file at the same time.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -717,6 +722,10 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <td>Subtitles (SubRip .srt)</td>
 </tr>
 <tr>
+<td>vtt</td>
+<td>Subtitles (WebVTT .vtt)</td>
+</tr>
+<tr>
 <td>stl</td>
 <td>Subtitles (EBU-STL .stl)</td>
 </tr>
@@ -739,6 +748,10 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <tr>
 <td>json</td>
 <td>JSON (.json)</td>
+</tr>
+<tr>
+<td>fcp</td>
+<td>Final Cut Pro (.fcp)</td>
 </tr>
 </tbody></table>
 <h2 id='retrieve-an-export'>Retrieve an Export</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.co/api/v1/exports/&lt;ID&gt;"</span> <span class="se">\</span>
