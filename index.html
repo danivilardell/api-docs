@@ -477,7 +477,8 @@ Remember — a happy scribe is an authenticated scribe!
     "transcription": {
         "name": "My Interview",
         "language": "en-GB",
-        "tmp_url": "https://example.com/my_media.mp3"
+        "tmp_url": "https://example.com/my_media.mp3",
+        "is_subtitle": false
       }
     }'</span>
 
@@ -492,6 +493,7 @@ Remember — a happy scribe is an authenticated scribe!
       <span class="na">name</span><span class="p">:</span> <span class="s1">'My Interview'</span><span class="p">,</span>
       <span class="na">language</span><span class="p">:</span> <span class="s1">'en-GB'</span><span class="p">,</span>
       <span class="na">tmp_url</span><span class="p">:</span> <span class="s1">'https://example.com/my_media.mp3'</span><span class="p">,</span>
+      <span class="na">is_subtitle</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="p">}</span>
   <span class="p">})</span>
 <span class="p">})</span>
@@ -539,6 +541,11 @@ Remember — a happy scribe is an authenticated scribe!
 <td>tmp_url</td>
 <td>String</td>
 <td>(required) A url where the media file is located and can be retrieved by our server.</td>
+</tr>
+<tr>
+<td>is_subtitle</td>
+<td>Boolean</td>
+<td>(default: false) If set to true, we will treat this transcription as subtitles.</td>
 </tr>
 </tbody></table>
 
