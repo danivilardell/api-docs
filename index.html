@@ -608,8 +608,8 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.com/api/v1/transcriptions/&lt;ID&gt;</code></p>
-<h3 id='soundave'>Soundave</h3>
-<p>It&#39;s only generated for subtitle files. The soundwaveUrl won&#39;t be available until the state is <code>automatic_done</code></p>
+<h3 id='soundwave'>Soundwave</h3>
+<p>It&#39;s only generated for subtitles (<code>&quot;is_subtitle&quot;: true</code>). The soundwaveUrl is not available until the state is <code>automatic_done</code></p>
 <h3 id='transcription-state-descriptions'>Transcription State Descriptions</h3>
 <table><thead>
 <tr>
