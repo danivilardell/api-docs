@@ -591,6 +591,7 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
   </span><span class="s2">"sharingEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"automatic_done"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"en-GB"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"soundwaveUrl"</span><span class="p">:</span><span class="s2">"https://hs-soundwaves-prod.s3-eu-west-1.amazonaws.com/e4c8e370a92aafb8b03da708c5016bb6-10.dat"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.happyscribe.com/api/v1/transcriptions/f6511f81156114aede28dc85325a796ae7996d11"</span><span class="w">
@@ -607,6 +608,8 @@ Before creating a transcription, your media file has to be uploaded. Refer to th
 <p>This endpoint retrieves information about a specific transcription. To retrieve the transcript you have to use the <a href="#create-an-export">export endpoint</a>.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.com/api/v1/transcriptions/&lt;ID&gt;</code></p>
+<h3 id='soundave'>Soundave</h3>
+<p>It&#39;s only generated for subtitle files. The soundwaveUrl won&#39;t be available until the state is <code>automatic_done</code></p>
 <h3 id='transcription-state-descriptions'>Transcription State Descriptions</h3>
 <table><thead>
 <tr>
