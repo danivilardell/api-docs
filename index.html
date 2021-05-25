@@ -550,7 +550,12 @@ Remember — a happy scribe is an authenticated scribe!
 <tr>
 <td>service</td>
 <td>String</td>
-<td>(default: <code>auto</code>) If set to <code>pro</code> the transcription will be proofread by our professional transcribers. <br> Note: check the <a href="/#languages">supported languages</a></td>
+<td><code>auto</code>(default) : Machine generated transcription/subtitles. <br> <code>pro</code> : transcription/subtitles hand-crafted by human professionals. <br> <code>alignment</code>: Align the text provided in <code>document_url</code> with the media from <code>tmp_url</code> <br> Note: check the <a href="/#languages">supported languages</a>.</td>
+</tr>
+<tr>
+<td>document_url</td>
+<td>String</td>
+<td>(only for <code>alignment</code> ) An accessible url to a plain text document that needs to be aligned with the media provided in <code>tmp_url</code>.</td>
 </tr>
 <tr>
 <td>workspace</td>
