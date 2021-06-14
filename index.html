@@ -343,14 +343,14 @@ curl <span class="s2">"https://www.happyscribe.com/api/v1/transcriptions"</span>
 You must replace <code>**your_api_key_here**</code> with your personal API key.
 </aside>
 <h1 id='uploads'>Uploads</h1>
-<p>When creating a transcription, a media file URL (accessible to our servers) must be provided.<br>
-This can be a publicly accessible URL hosted by yourselves or a third-party. Alternatively, you can upload files directly to our storage system (AWS S3 bucket) and create the transcription using the returned URL.  </p>
-
 <aside class="notice">
 
-  If you already have a URL to your file, jump to <a href="/#create-a-new-transcription">create a transcription</a>. If you don't, continue reading to learn how to upload to our servers.
-  
+  If you already have a public link to your file, jump to <a href="/#create-a-transcription">create a transcription</a>. 
+  If you don't, continue reading to learn how to upload to our servers.
 </aside>
+
+<p>When creating a transcription, a media file URL (accessible to our servers) must be provided.<br>
+This can be a publicly accessible URL hosted by yourselves or a third-party. We also support public links from services like YouTube and Vimeo. Alternatively, you can upload files directly to our storage system (AWS S3 bucket) and create the transcription using the returned URL.  </p>
 
 <p>To upload files to our AWS S3 bucket, you must first request a signed URL using the endpoints below.  </p>
 <h2 id='1-get-a-signed-url'>1. Get a Signed Url</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://www.happyscribe.com/api/v1/uploads/new?filename=my_media.mp3"</span> <span class="se">\</span>
@@ -371,7 +371,7 @@ This can be a publicly accessible URL hosted by yourselves or a third-party. Alt
 </span></code></pre>
 <p>This endpoint returns a signed URL which can be used to make PUT requests to our S3 bucket. More information here: <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html">docs.aws.amazon.com</a></p>
 
-<p>Once the file is uploaded, this same url should be used as the <code>tmp_url</code> when <a href="#create-a-new-transcription">creating the associated transcription.</a></p>
+<p>Once the file is uploaded, this same url should be used as the <code>tmp_url</code> when <a href="#create-a-transcription">creating the associated transcription.</a></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://www.happyscribe.com/api/v1/uploads/new</code></p>
 <h3 id='parameters'>Parameters</h3>
